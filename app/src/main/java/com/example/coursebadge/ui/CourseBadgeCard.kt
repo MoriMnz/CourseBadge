@@ -30,14 +30,10 @@ import androidx.compose.ui.unit.dp
 import com.example.coursebadge.model.Course
 import com.example.coursebadge.model.CourseData
 
-/* ------------------------------------------------------------------ */
-/*  Requirement 2 — Screen-level container                            */
-/* ------------------------------------------------------------------ */
+// Requirement 2: main screen container
 
-/**
- * Root screen. A single vertically scrolling Column holds the header and every
- * course card, with an explicit Spacer between cards as required.
- */
+// everything lives in one scrollable Column: header first, then each course
+// card with a Spacer between them
 @Composable
 fun CourseListScreen(
     modifier: Modifier = Modifier,
@@ -54,7 +50,7 @@ fun CourseListScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        // Higher-order function: forEachIndexed drives both rendering and spacing.
+        // forEachIndexed so we can skip the spacer after the last card
         courses.forEachIndexed { index, course ->
             CourseBadgeCard(course = course)
             if (index != courses.lastIndex) {
@@ -99,10 +95,7 @@ private fun ScreenHeader(courseCount: Int, totalCredits: Int) {
     }
 }
 
-/* ------------------------------------------------------------------ */
-/*  The custom composable required by the assignment                  */
-/* ------------------------------------------------------------------ */
-
+// the CourseBadgeCard composable the assignment asks for
 @Composable
 fun CourseBadgeCard(
     course: Course,
@@ -119,7 +112,7 @@ fun CourseBadgeCard(
     ) {
         Column(modifier = Modifier.padding(20.dp)) {
 
-            // --- Top row: course code on the left, credits on the right ---
+            // course code on the left, credits on the right
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -136,7 +129,7 @@ fun CourseBadgeCard(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // --- Title: bold, large typography ---
+            // title, bold and bigger than the rest of the card
             Text(
                 text = course.title,
                 style = MaterialTheme.typography.headlineSmall,
@@ -146,26 +139,23 @@ fun CourseBadgeCard(
 
             Spacer(modifier = Modifier.height(10.dp))
 
-            // --- Labeled instructor line ---
+            // instructor line with label
             InstructorRow(instructor = course.instructor)
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // --- Null-safety UI guard ---
+            // null-safety guard for prerequisite
             PrerequisiteBanner(prerequisite = course.prerequisite)
 
             Spacer(modifier = Modifier.height(14.dp))
 
-            // --- Tags ---
+            // tags
             TagRow(tags = course.tags)
         }
     }
 }
 
-/* ------------------------------------------------------------------ */
-/*  Sub-views: each one does a single job                             */
-/* ------------------------------------------------------------------ */
-
+// smaller pieces used inside the card, one job each
 @Composable
 private fun CodeBadge(code: String) {
     Box(
@@ -203,16 +193,12 @@ private fun InstructorRow(instructor: String) {
     }
 }
 
-/**
- * Null-safety guard. The Elvis operator supplies the fallback text, and the
- * same null check drives the color pair so "None" reads as visually distinct
- * from a real prerequisite.
- */
+// Elvis operator gives us the fallback text, and we reuse that same null
+// check to pick different colors so "None" stands out from a real prerequisite.
 @Composable
 private fun PrerequisiteBanner(prerequisite: String?) {
     val hasPrereq = prerequisite != null
 
-    // Elvis operator: fall back to the "none" string when null.
     val label = prerequisite?.let { "Prereq: $it" } ?: "Prerequisites: None"
 
     val containerColor =
@@ -246,10 +232,10 @@ private fun TagRow(tags: List<String>) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // Higher-order function: forEach emits one chip per tag.
+        // one chip per tag
         tags.forEach { tag ->
             AssistChip(
-                onClick = { /* no navigation required for this assignment */ },
+                onClick = { /* chips don't need to do anything for this assignment */ },
                 label = {
                     Text(
                         text = tag.uppercase(),
@@ -265,10 +251,7 @@ private fun TagRow(tags: List<String>) {
     }
 }
 
-/* ------------------------------------------------------------------ */
-/*  Requirement 3 — Preview                                           */
-/* ------------------------------------------------------------------ */
-
+// Requirement 3: previews
 @Preview(showBackground = true, heightDp = 1400)
 @Composable
 fun CourseListPreview() {

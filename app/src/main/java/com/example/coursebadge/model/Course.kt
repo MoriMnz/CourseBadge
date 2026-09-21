@@ -1,12 +1,8 @@
 package com.example.coursebadge.model
 
-/**
- * Requirement 1 — Kotlin Data Architecture.
- *
- * Immutable model of a single course offering. `prerequisite` is declared
- * nullable (String?) so the UI layer is forced to handle the "no prerequisite"
- * case explicitly instead of relying on a magic string like "" or "None".
- */
+// Requirement 1: course model. prerequisite is nullable on purpose so we
+// actually have to handle the "no prerequisite" case instead of just
+// using an empty string as a placeholder.
 data class Course(
     val courseCode: String,
     val title: String,
@@ -16,10 +12,7 @@ data class Course(
     val tags: List<String>
 )
 
-/**
- * Singleton data source. `object` guarantees a single instance for the whole
- * process, so every composable reads the same backing list.
- */
+// object here since we only need one instance of this data for the whole app
 object CourseData {
 
     val courses: List<Course> = listOf(
@@ -43,7 +36,7 @@ object CourseData {
             courseCode = "E T 101",
             title = "Intro to Engineering Technology",
             credits = 3,
-            // Null on purpose: exercises the null-safety guard in the UI.
+            // left null on purpose to test the null-safety guard in the UI
             prerequisite = null,
             instructor = "Dr. Chen",
             tags = listOf("Survey", "Freshman", "Lab")
@@ -58,15 +51,15 @@ object CourseData {
         )
     )
 
-    /** Higher-order function usage: sumOf with a lambda. */
+    // adds up credits across all courses
     val totalCredits: Int
         get() = courses.sumOf { it.credits }
 
-    /** Lambda + filter: courses a student can take with no prior coursework. */
+    // courses with no prerequisite, so a first-time student could take these
     fun openEnrollmentCourses(): List<Course> =
         courses.filter { it.prerequisite == null }
 
-    /** Lambda + map/joinToString: flattens tags for logging or search. */
+    // combines all tags into one string, mainly useful for logging/search
     fun allTags(): String =
         courses.flatMap { it.tags }.distinct().sorted().joinToString(separator = ", ")
 }
