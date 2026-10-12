@@ -1,12 +1,8 @@
 package com.example.coursebadge.model
 
-/**
- * Requirement 1 — Data Model Updates.
- *
- * `id` is new in Homework 2. The screen tracks enrollment and prerequisite
- * status in Sets of ids rather than in the Course objects themselves, which
- * keeps Course immutable and makes the state cheap to save and restore.
- */
+// Requirement 1: course model. id is new for HW2, the screen keeps track of
+// enrolled courses and prerequisites with sets of ids instead of changing the
+// Course objects, so Course stays immutable and the state is easy to save.
 data class Course(
     val id: String,
     val courseCode: String,
@@ -44,7 +40,7 @@ object CourseData {
             title = "Intro to Engineering Technology",
             credits = 3,
             instructor = "Dr. Chen",
-            // Null on purpose: this course is always enrollable.
+            // left null on purpose, this one can always be enrolled
             prerequisite = null,
             tags = listOf("Survey", "Freshman", "Lab")
         ),
@@ -68,11 +64,8 @@ object CourseData {
         )
     )
 
-    /**
-     * Matches a course against the search box. Checked against both the title
-     * and the course code so "483" and "mobile" both find the same course.
-     * A blank query matches everything.
-     */
+    // used by the search box, checks both title and course code so "483" and
+    // "mobile" find the same course. empty search shows everything
     fun matchesQuery(course: Course, query: String): Boolean {
         if (query.isBlank()) return true
         val trimmed = query.trim()
