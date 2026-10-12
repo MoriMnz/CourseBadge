@@ -40,30 +40,25 @@ import androidx.compose.ui.unit.dp
 import com.example.coursebadge.model.Course
 import com.example.coursebadge.model.CourseData
 
-/* ================================================================== */
-/*  Requirement 4 — State hoisting and integration                    */
-/* ================================================================== */
+// Requirement 4: state hoisting
 
-/**
- * The only stateful composable in the file. Every piece of mutable state lives
- * here and flows down to the children as plain values; the children report user
- * actions back up through callbacks. That keeps EnrollmentHeader and
- * InteractiveCourseCard stateless, reusable, and previewable in isolation.
- */
+// this is the only composable with state. the state goes down to the children
+// as normal values and the children send events back up with callbacks, so
+// EnrollmentHeader and InteractiveCourseCard stay stateless
 @Composable
 fun CourseTrackerScreen(
     modifier: Modifier = Modifier,
     courses: List<Course> = CourseData.courses
 ) {
-    // rememberSaveable survives configuration changes (screen rotation),
-    // unlike plain remember, which would reset all four of these.
+    // rememberSaveable so nothing resets when the phone rotates, with plain
+    // remember all four of these would go back to default
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var overridePrereqs by rememberSaveable { mutableStateOf(false) }
     var enrolledIds by rememberSaveable { mutableStateOf(setOf<String>()) }
     var satisfiedPrereqIds by rememberSaveable { mutableStateOf(setOf<String>()) }
 
-    // Derived values — recomputed on each recomposition rather than stored,
-    // so they can never drift out of sync with the state above.
+    // these are calculated again on every recomposition instead of being
+    // stored, that way they can't get out of sync with the state above
     val totalCredits = courses
         .filter { it.id in enrolledIds }
         .sumOf { it.credits }
@@ -86,9 +81,8 @@ fun CourseTrackerScreen(
             onOverrideToggle = { enabled ->
                 overridePrereqs = enabled
                 if (!enabled) {
-                    // Turning the override off revokes any enrollment that only
-                    // the override made legal, so the enrolled set can never
-                    // contradict the prerequisite rules.
+                    // if the override is turned off, unenroll the courses that
+                    // were only allowed because of the override
                     enrolledIds = enrolledIds.filterTo(mutableSetOf()) { id ->
                         val course = courses.first { it.id == id }
                         course.prerequisite == null || id in satisfiedPrereqIds
@@ -102,9 +96,8 @@ fun CourseTrackerScreen(
         }
 
         visibleCourses.forEach { course ->
-            // A course is enrollable when it has no prerequisite at all, when
-            // the global override is on, or when this specific prerequisite
-            // has been marked satisfied.
+            // can enroll if there is no prerequisite, the override is on, or
+            // the prerequisite for this course was marked as satisfied
             val prereqSatisfied = overridePrereqs || course.id in satisfiedPrereqIds
             val canEnroll = course.prerequisite == null || prereqSatisfied
 
@@ -120,11 +113,10 @@ fun CourseTrackerScreen(
                 canEnroll = canEnroll,
                 isOverrideActive = overridePrereqs,
                 onTogglePrereq = {
-                    // Set +/- returns a new Set, so the state object changes
-                    // identity and Compose sees the update.
+                    // + and - give us a new Set, which is what makes Compose
+                    // notice the change
                     satisfiedPrereqIds = if (course.id in satisfiedPrereqIds) {
-                        // Withdrawing the prerequisite also withdraws the
-                        // enrollment that depended on it.
+                        // prerequisite is missing again so unenroll too
                         enrolledIds = enrolledIds - course.id
                         satisfiedPrereqIds - course.id
                     } else {
@@ -143,9 +135,8 @@ fun CourseTrackerScreen(
     }
 }
 
-/* ================================================================== */
-/*  Requirement 2 — Stateless header summary                          */
-/* ================================================================== */
+// Requirement 2: header, no state here, it just shows what it receives and
+// calls the callbacks
 
 @Composable
 fun EnrollmentHeader(
@@ -209,9 +200,7 @@ fun EnrollmentHeader(
     }
 }
 
-/* ================================================================== */
-/*  Requirement 3 — Interactive course card                           */
-/* ================================================================== */
+// Requirement 3: interactive course card, also stateless
 
 @Composable
 fun InteractiveCourseCard(
@@ -233,7 +222,7 @@ fun InteractiveCourseCard(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(
-            // Selection state: enrolled cards switch container color.
+            // enrolled cards change color so you can tell them apart
             containerColor = if (isEnrolled) MaterialTheme.colorScheme.primaryContainer
             else MaterialTheme.colorScheme.surface
         ),
@@ -279,7 +268,7 @@ fun InteractiveCourseCard(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // --- Prerequisite row: null-safe, and interactive when present ---
+            // prerequisite row, only clickable if the course has one
             if (prerequisite == null) {
                 Text(
                     text = "No prerequisites",
@@ -298,8 +287,8 @@ fun InteractiveCourseCard(
 
                 FilterChip(
                     selected = isPrereqSatisfied,
-                    // Disabled while the global override is on, because an
-                    // individual toggle cannot change the outcome then.
+                    // disabled while the override is on since clicking it
+                    // wouldn't change anything anyway
                     enabled = !isOverrideActive,
                     onClick = onTogglePrereq,
                     label = {
@@ -321,7 +310,7 @@ fun InteractiveCourseCard(
                 Spacer(modifier = Modifier.height(14.dp))
             }
 
-            // --- Enrollment control ---
+            // enroll/unenroll button, Enroll is disabled if prerequisites are missing
             if (isEnrolled) {
                 OutlinedButton(
                     onClick = onToggleEnrollment,
@@ -351,9 +340,7 @@ fun InteractiveCourseCard(
     }
 }
 
-/* ================================================================== */
-/*  Small shared pieces                                               */
-/* ================================================================== */
+// smaller pieces used inside the card, one job each
 
 @Composable
 private fun CodeBadge(code: String, isEnrolled: Boolean) {
@@ -417,9 +404,8 @@ private fun EmptyResults(query: String) {
     }
 }
 
-/* ================================================================== */
-/*  Previews                                                          */
-/* ================================================================== */
+// previews, the two card ones just pass fixed values to show the enrolled
+// and blocked versions of the card
 
 @Preview(name = "Light Mode", showBackground = true, heightDp = 1800)
 @Composable
