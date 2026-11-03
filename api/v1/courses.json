@@ -1,0 +1,189 @@
+[
+  {
+    "id": "et483",
+    "course_code": "E T 483",
+    "title": "Mobile App Programming",
+    "credit_hours": 3,
+    "prerequisite": "E T 382 (Advanced Software Systems)",
+    "tags": ["Kotlin", "Compose", "Android"],
+    "description": "Design and development of native Android applications using Kotlin and Jetpack Compose, covering state management, MVVM architecture, navigation, and working with remote data.",
+    "schedule": "Tue / Thu  10:30 AM - 11:45 AM",
+    "location": "Goddard Hall 210",
+    "instructor": {
+      "name": "Dr. Saleem Masadeh",
+      "title": "Instructor, Computer Science",
+      "email": "saleem@nmsu.edu",
+      "photo_url": "https://plexlab.net/wp-content/uploads/2019/07/saleem-cropped.png"
+    }
+  },
+  {
+    "id": "et362",
+    "course_code": "E T 362",
+    "title": "Microcomputer Architecture",
+    "credit_hours": 4,
+    "prerequisite": "E T 182 (Digital Logic & Circuits)",
+    "tags": ["Assembly", "Embedded", "ARM"],
+    "description": "Internal organization of microprocessors, memory and I/O interfacing, and assembly language programming on ARM based development boards.",
+    "schedule": "Mon / Wed  1:00 PM - 2:15 PM  +  Fri lab",
+    "location": "Engineering Complex III 104",
+    "instructor": {
+      "name": "Dr. Rolfe Sassenfeld",
+      "title": "MIT Program Director, Professor",
+      "email": "rolfe@nmsu.edu",
+      "photo_url": "https://et.nmsu.edu/assets/_portraits/RolfeProfilePIc.jpg"
+    }
+  },
+  {
+    "id": "et101",
+    "course_code": "E T 101",
+    "title": "Intro to Engineering Technology",
+    "credit_hours": 3,
+    "prerequisite": null,
+    "tags": ["Survey", "Freshman", "Lab"],
+    "description": "Overview of the engineering technology disciplines, technical problem solving, teamwork, and hands-on lab projects for first year students.",
+    "schedule": "Mon / Wed / Fri  9:00 AM - 9:50 AM",
+    "location": "Jett Hall 115",
+    "instructor": {
+      "name": "Dr. Mark Lawrence",
+      "title": "Associate College Professor",
+      "email": "marklaw@nmsu.edu",
+      "photo_url": "https://et.nmsu.edu/images/Mark-Lawrence.jpg"
+    }
+  },
+  {
+    "id": "et583",
+    "course_code": "E T 583",
+    "title": "Mobile App Programming (Graduate)",
+    "credit_hours": 3,
+    "prerequisite": "Graduate standing",
+    "tags": ["Kotlin", "Compose", "Research"],
+    "description": "Graduate section of E T 483. Same Kotlin and Jetpack Compose topics, plus reading current mobile research papers and building a semester long app project.",
+    "schedule": "Wed  6:00 PM - 8:30 PM",
+    "location": "Goddard Hall 230",
+    "instructor": {
+      "name": "Dr. Saleem Masadeh",
+      "title": "Instructor, Computer Science",
+      "email": "saleem@nmsu.edu",
+      "photo_url": "https://plexlab.net/wp-content/uploads/2019/07/saleem-cropped.png"
+    }
+  },
+  {
+    "id": "et555",
+    "course_code": "E T 555",
+    "title": "Virtualization",
+    "credit_hours": 3,
+    "prerequisite": "E T 350 (Networking Fundamentals)",
+    "tags": ["VMware", "Hypervisor", "Labs"],
+    "description": "Compute, storage, and network virtualization, Type 1 and Type 2 hypervisors, and techniques like snapshots, templates, and live migration.",
+    "schedule": "Online  (asynchronous)",
+    "location": "Canvas",
+    "instructor": {
+      "name": "Prof. Philip Braker",
+      "title": "ICT Program Coordinator, Associate Professor",
+      "email": "pbraker@nmsu.edu",
+      "photo_url": "https://et.nmsu.edu/images/Braker.jpg"
+    }
+  },
+  {
+    "id": "et420",
+    "course_code": "E T 420",
+    "title": "Network Security",
+    "credit_hours": 3,
+    "prerequisite": "E T 350 (Networking Fundamentals)",
+    "tags": ["Firewalls", "Crypto", "Linux"],
+    "description": "Securing networked systems, firewalls, VPNs, intrusion detection, and an introduction to applied cryptography.",
+    "schedule": "Tue / Thu  2:30 PM - 3:45 PM",
+    "location": "Engineering Complex III 210",
+    "instructor": {
+      "name": "Prof. Philip Braker",
+      "title": "ICT Program Coordinator, Associate Professor",
+      "email": "pbraker@nmsu.edu",
+      "photo_url": "https://et.nmsu.edu/images/Braker.jpg"
+    }
+  },
+  {
+    "id": "et310",
+    "course_code": "E T 310",
+    "title": "Database Systems",
+    "credit_hours": 3,
+    "prerequisite": null,
+    "tags": ["SQL", "Modeling", "Postgres"],
+    "description": "Relational database design, entity relationship modeling, normalization, and writing SQL queries against a real database.",
+    "schedule": "Mon / Wed  3:00 PM - 4:15 PM",
+    "location": "Jett Hall 202",
+    "instructor": {
+      "name": "Dr. Mark Lawrence",
+      "title": "Associate College Professor",
+      "email": "marklaw@nmsu.edu",
+      "photo_url": "https://et.nmsu.edu/images/Mark-Lawrence.jpg"
+    }
+  },
+  {
+    "id": "et470",
+    "course_code": "E T 470",
+    "title": "Cloud Computing",
+    "credit_hours": 3,
+    "prerequisite": "E T 555 (Virtualization)",
+    "tags": ["AWS", "Containers", "IaaS"],
+    "description": "Cloud service models, deploying applications on public cloud providers, containers, and resource pooling.",
+    "schedule": "Tue / Thu  5:30 PM - 6:45 PM",
+    "location": "Goddard Hall 115",
+    "instructor": {
+      "name": "Dr. Rolfe Sassenfeld",
+      "title": "MIT Program Director, Professor",
+      "email": "rolfe@nmsu.edu",
+      "photo_url": "https://et.nmsu.edu/assets/_portraits/RolfeProfilePIc.jpg"
+    }
+  },
+  {
+    "id": "cs478",
+    "course_code": "C S 478",
+    "title": "Applied Cryptography & Blockchain",
+    "credit_hours": 3,
+    "prerequisite": "E T 420 (Network Security)",
+    "tags": ["Crypto", "Blockchain", "Privacy"],
+    "description": "Symmetric and public key cryptography, hashing, digital signatures, and how blockchains and smart contracts use them to build systems that don't need a trusted middleman.",
+    "schedule": "Mon / Wed  10:30 AM - 11:45 AM",
+    "location": "Science Hall 118",
+    "instructor": {
+      "name": "Dr. Gaurav Panwar",
+      "title": "Assistant Professor, Computer Science",
+      "email": "gpanwar@nmsu.edu",
+      "photo_url": "https://computerscience.nmsu.edu/_assets/images/gaurav_provile.png"
+    }
+  },
+  {
+    "id": "cs479",
+    "course_code": "C S 479",
+    "title": "Cyber-Physical Systems Security",
+    "credit_hours": 3,
+    "prerequisite": "E T 362 (Microcomputer Architecture)",
+    "tags": ["ICS", "Satellites", "Deception"],
+    "description": "Security of systems that connect software with the physical world, like industrial control systems, PLCs, and satellites, plus honeypots and cyber deception.",
+    "schedule": "Tue / Thu  1:00 PM - 2:15 PM",
+    "location": "Science Hall 107",
+    "instructor": {
+      "name": "Dr. Efrén López-Morales",
+      "title": "Assistant Professor, Computer Science",
+      "email": "elopezm@nmsu.edu",
+      "photo_url": "https://computerscience.nmsu.edu/facultydirectory/_images/efren-lopez-morales-250-250.jpg"
+    }
+  },
+  {
+    "id": "cs272",
+    "course_code": "C S 272",
+    "title": "Data Structures",
+    "credit_hours": 4,
+    "prerequisite": null,
+    "tags": ["C++", "Trees", "Algorithms"],
+    "description": "Lists, stacks, queues, trees, hash tables, and graphs, how they are implemented, and how to pick the right one by looking at the running time.",
+    "schedule": "Mon / Wed / Fri  11:30 AM - 12:20 PM",
+    "location": "Science Hall 118",
+    "instructor": {
+      "name": "Dr. Shaun Cooper",
+      "title": "College Associate Professor, Computer Science",
+      "email": "scooper@nmsu.edu",
+      "photo_url": "https://computerscience.nmsu.edu/facultydirectory/_images/shaun-2019b-sq-250x250.jpg"
+    }
+  }
+]

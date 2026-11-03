@@ -1,6 +1,7 @@
 package com.example.coursebadge.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -92,7 +94,19 @@ fun CourseDetailContent(
             )
         }
     ) { innerPadding ->
-        if (course == null) {
+        if (course == null && state.isLoading) {
+            // For HW4 the catalog comes from the network, so the course can be
+            // missing just because it was not downloaded yet (for example, if
+            // Android recreated the app while it was on this screen)
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        } else if (course == null) {
             Text(
                 text = "Course \"$courseId\" was not found.",
                 modifier = Modifier
@@ -263,7 +277,7 @@ fun CourseDetailPreview() {
     CourseBadgeTheme {
         CourseDetailContent(
             courseId = "et362",
-            state = CourseUiState(),
+            state = CourseUiState(courses = previewCourses),
             onTogglePrereq = { },
             onToggleEnrollment = { },
             onBackClick = { }
